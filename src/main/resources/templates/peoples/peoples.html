@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Peoples</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container text-center">
+    <div> <h1>Peoples list</h1></div>
+    <div>
+        <table class="table table-bordered">
+            <thread>
+                <tr class="thead-dark">
+                    <th>FIRST NAME</th>
+                    <th>LAST NAME</th>
+                    <th>FATHER NAME</th>
+                    <th>GROUP NAME</th>
+                    <th>TYPE</th>
+                    <th></th>
+                </tr>
+            </thread>
+            <tbody>
+            <th:block th:each="people : ${peoplesList}">
+                <tr>
+                    <td>[[${people.firstName}]]</td>
+                    <td>[[${people.lastName}]]</td>
+                    <td>[[${people.fatherName}]]</td>
+                    <td>[[${people.group.name}]]</td>
+                    <td>[[${people.type}]]</td>
+                    <td>
+                        <a th:href="@{'/peoples/edit/' + ${people.id}}">Edit</a>
+                        &nbsp;
+                        <a th:href="@{'/peoples/delete/' + ${people.id}}">Delete</a>
+                    </td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+        <div class="p-2"><a class="h2" th:href="@{/}"> Return to main</a></div>
+    </div>
+</div>
+</body>
+</html>
