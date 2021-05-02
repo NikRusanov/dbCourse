@@ -2,12 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Peoples</title>
+    <title>List peoples</title>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
 </head>
 <body>
 <div class="container text-center">
-    <div> <h1>Peoples list</h1></div>
+    <div> <h1>people list</h1></div>
     <div>
         <table class="table table-bordered">
             <thread>
@@ -29,15 +29,20 @@
                     <td>[[${people.group.name}]]</td>
                     <td>[[${people.type}]]</td>
                     <td>
-                        <a th:href="@{'/peoples/edit/' + ${people.id}}">Edit</a>
-                        &nbsp;
-                        <a th:href="@{'/peoples/delete/' + ${people.id}}">Delete</a>
+                        <div class="btn-block">
+                            <a class="btn btn-primary" th:href="@{'/peoples/edit/' + ${people.id}}">Edit</a>
+                            &nbsp;
+                            <a class="btn btn-danger"th:href="@{'/peoples/delete/' + ${people.id}}">Delete</a>
+                        </div>
                     </td>
                 </tr>
             </th:block>
             </tbody>
         </table>
-        <div class="p-2"><a class="h2" th:href="@{/}"> Return to main</a></div>
+    </div>
+    <div class="btn-block">
+        <a class="btn btn-primary" th:href="@{'/'}">Main</a>
+        <a class="btn btn-primary" th:href="@{'/peoples/new'}">Add</a>
     </div>
 </div>
 </body>

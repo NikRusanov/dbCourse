@@ -1,13 +1,12 @@
 package com.db.example.db.services;
 
 import com.db.example.db.entities.Group;
-import com.db.example.db.entities.Marks;
+import com.db.example.db.entities.Mark;
 import com.db.example.db.entities.People;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.persistence.Tuple;
 import javax.persistence.criteria.*;
 import javax.transaction.Transactional;
@@ -78,12 +77,12 @@ public class PeopleService {
 
     public List<Tuple> getLowerAverageMarksByTeacher(People people) {
         CriteriaQuery<Tuple> criteriaQuery = criteriaFactory.getCriteria(Tuple.class);
-        Root<Marks> root = criteriaQuery.from(Marks.class);
+        Root<Mark> root = criteriaQuery.from(Mark.class);
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 
-        Join<Marks, People> teacherJoin = root.join("teacher");
-        Join<Marks, People> studentJoin = root.join("student");
-        Join<Marks, Group> groupJoin = studentJoin.join("group");
+        Join<Mark, People> teacherJoin = root.join("teacher");
+        Join<Mark, People> studentJoin = root.join("student");
+        Join<Mark, Group> groupJoin = studentJoin.join("group");
 
         Predicate teacherId = builder.equal(root.get("teacher"), people.getId());
         criteriaQuery.where(teacherId);

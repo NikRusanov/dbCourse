@@ -1,6 +1,7 @@
 package com.db.example.db.controllers;
 
 import com.db.example.db.entities.Group;
+import com.db.example.db.entities.People;
 import com.db.example.db.services.GroupsService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -17,22 +18,22 @@ public class GroupsController {
     private final GroupsService groupsService;
 
 
-    public GroupsController(GroupsService groupsService) {
+    public  GroupsController(GroupsService groupsService) {
         this.groupsService = groupsService;
     }
 
 
     @GetMapping("/groups")
-    public String listGroups(Model model) {
+    public String listGroup(Model model) {
         List<Group> groups = groupsService.list();
         model.addAttribute("groupsList", groups);
-        return "groups/groups";
+        return "groups";
     }
 
     @GetMapping("/groups/new")
     public String showGroupAddForm(Model model) {
         model.addAttribute("group", new Group());
-        return  "groups/group_form";
+        return  "group_form";
     }
 
     @PostMapping("/groups/save")
@@ -45,10 +46,10 @@ public class GroupsController {
     public String showGroupEditForm(@PathVariable("id") Integer id, Model model) {
         Group group = groupsService.findById(id);
         if(group == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "\"Unable to find group with id" + id);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "\"Unable to find people with id" + id);
         }
         model.addAttribute("group", group);
-        return "groups/group_form";
+        return "group_form";
     }
 
     @GetMapping("groups/delete/{id}")
@@ -60,6 +61,4 @@ public class GroupsController {
         groupsService.delete(group);
         return "redirect:/groups";
     }
-
-
 }

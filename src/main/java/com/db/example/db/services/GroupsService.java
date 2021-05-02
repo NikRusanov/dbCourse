@@ -31,19 +31,18 @@ public class GroupsService {
     }
 
     @Transactional
-    public void  save(Group group) {
+    public void save(Group group) {
         if(group.getId() == null) {
             entityManager.persist(group);
         } else  {
             entityManager.merge(group);
         }
-
     }
 
     @Transactional
     public void delete(Group group) {
-        Group mergedGroup = entityManager.merge(group);
-        entityManager.remove(mergedGroup);
+        Group merged = entityManager.merge(group);
+        entityManager.remove(merged);
     }
 
     public Group findById(Integer id) {

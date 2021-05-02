@@ -8,16 +8,16 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name= "subjects", schema = "main")
-public class Subjects {
+public class Subject {
     @Id
     @Column(name= "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "Name")
+    @Column(name = "name")
     private String name;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

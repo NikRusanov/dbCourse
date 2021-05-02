@@ -2,19 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Add product</title>
+    <title>Add group</title>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
 </head>
 <body>
 <div class="container text-center">
-    <div th:if="${group.id == null}"> <h1>Edit Group</h1></div>
-    <div th:unless="${group.id == null}"> <h1>Add People</h1></div>
+    <div th:if="${group.id == null}"> <h1>Add Group</h1></div>
+    <div th:unless="${group.id == null}"> <h1>New Group</h1></div>
     <form th:action="@{/groups/save}" th:object="${group}" method="post"
           style="max-width: 600px; margin: 0 auto">
         <input type="hidden" th:field="*{id}" th:value="${group.id}"/>
         <div class="m-3">
             <div class="form-group row">
-                <label class="col-form-label col-sm-4">Group name:</label>
+                <label class="col-form-label col-sm-4">First name:</label>
                 <div class="col-sm-8">
                     <input type="text" th:field="*{name}" class="form-control" required/>
                 </div>
@@ -23,10 +23,9 @@
             <div class="form-group row">
                 <label class="col-form-label col-sm-4">Last name:</label>
                 <div class="col-sm-8">
-                    <input type="text" th:field="*{year}" class="form-control" required/>
+                    <input type="number" min="0" max="3000"  th:field="*{year}" class="form-control" required/>
                 </div>
             </div>
-
             <div class="text-center p-3">
                 <button type="submit" class="btn btn-primary">Save</button>
             </div>

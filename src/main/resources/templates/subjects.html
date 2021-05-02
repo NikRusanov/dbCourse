@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List groups</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container text-center">
+    <div> <h1>Subject list</h1></div>
+    <div>
+        <table class="table table-bordered">
+            <thread>
+                <tr class="thead-dark">
+                    <th>NAME</th>
+                    <th></th>
+                </tr>
+            </thread>
+            <tbody>
+            <th:block th:each="subject : ${subjects}">
+                <tr>
+                    <td>[[${subject.name}]]</td>
+                    <td>
+                        <div class="btn-block">
+                            <a class="btn btn-primary" th:href="@{'/subjects/edit/' + ${subject.id}}">Edit</a>
+                            <a class="btn btn-danger"th:href="@{'/subjects/delete/' + ${subject.id}}">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+    <div class="btn-block">
+        <a class="btn btn-primary" th:href="@{'/'}">Main</a>
+        <a class="btn btn-primary" th:href="@{'/subjects/new'}">Add</a>
+    </div>
+</div>
+</body>
+</html>

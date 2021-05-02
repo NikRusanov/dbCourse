@@ -1,10 +1,12 @@
 package com.db.example.db.controllers;
 
 
+import com.db.example.db.entities.Group;
 import com.db.example.db.entities.People;
 import com.db.example.db.services.GroupsService;
 import com.db.example.db.services.PeopleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,18 +30,19 @@ public class PeopleController {
         this.groupService = groupService;
     }
 
-    @GetMapping("/peoples")
+    @GetMapping("/peoples/")
     public String listPeoples(Model model) {
         List<People> peoples = peopleService.list();
         model.addAttribute("peoplesList", peoples);
-        return "peoples/peoples";
+        model.addAttribute("groups", groupService.list());
+        return "peoples";
     }
 
     @GetMapping("/peoples/new")
     public String showPeopleAddForm(Model model) {
         model.addAttribute("people", new People());
         model.addAttribute("groups", groupService.list());
-        return  "peoples/people_form";
+        return  "people_form";
     }
 
     @PostMapping("/peoples/save")
@@ -56,7 +59,7 @@ public class PeopleController {
         }
         model.addAttribute("people", people);
         model.addAttribute("groups", groupService.list());
-        return "peoples/people_form";
+        return "people_form";
     }
 
     @GetMapping("peoples/delete/{id}")
@@ -68,6 +71,9 @@ public class PeopleController {
         peopleService.delete(people);
         return "redirect:/peoples";
     }
+
+
+
 
 
 

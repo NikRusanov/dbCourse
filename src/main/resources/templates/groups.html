@@ -2,17 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>List Categories</title>
+    <title>List groups</title>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
 </head>
 <body>
 <div class="container text-center">
-    <div> <h1>Group list</h1></div>
+    <div> <h1>group list</h1></div>
     <div>
         <table class="table table-bordered">
             <thread>
                 <tr class="thead-dark">
                     <th>NAME</th>
+                    <th>YEAR</th>
                     <th></th>
                 </tr>
             </thread>
@@ -22,14 +23,20 @@
                     <td>[[${group.name}]]</td>
                     <td>[[${group.year}]]</td>
                     <td>
-                        <a th:href="@{'/groups/edit/' + ${group.id}}">Edit</a>
-                        &nbsp;
-                        <a th:href="@{'/groups/delete/' + ${group.id}}">Delete</a>
+                        <div class="btn-block">
+                            <a class="btn btn-primary" th:href="@{'/groups/edit/' + ${group.id}}">Edit</a>
+                            &nbsp;
+                            <a class="btn btn-danger"th:href="@{'/groups/delete/' + ${group.id}}">Delete</a>
+                        </div>
                     </td>
                 </tr>
             </th:block>
             </tbody>
         </table>
+    </div>
+    <div class="btn-block">
+        <a class="btn btn-primary" th:href="@{'/'}">Main</a>
+        <a class="btn btn-primary" th:href="@{'/groups/new'}">Add</a>
     </div>
 </div>
 </body>
