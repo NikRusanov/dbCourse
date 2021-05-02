@@ -1,6 +1,6 @@
 package com.db.example.db.services;
 
-import com.db.example.db.entities.Group;
+
 import com.db.example.db.entities.Subject;
 import org.springframework.stereotype.Component;
 
@@ -39,8 +39,8 @@ public class SubjectService {
     }
 
     @Transactional
-    public void delete(Subject group) {
-        Subject merged = entityManager.merge(group);
+    public void delete(Subject subject) {
+        Subject merged = entityManager.merge(subject);
         entityManager.remove(merged);
     }
 

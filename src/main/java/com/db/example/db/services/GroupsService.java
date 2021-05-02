@@ -2,8 +2,6 @@ package com.db.example.db.services;
 
 
 import com.db.example.db.entities.Group;
-import com.db.example.db.entities.People;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
