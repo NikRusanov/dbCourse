@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List Marks</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container text-center">
+    <div> <h1>marks list</h1></div>
+    <div>
+        <table class="table table-bordered">
+            <thread>
+                <tr class="thead-dark">
+                    <th>VALUE</th>
+                    <th>STUDENT</th>
+                    <th>TEACHER</th>
+                    <th>SUBJECT</th>
+                    <th></th>
+                </tr>
+            </thread>
+            <tbody>
+            <th:block th:each="mark : ${markList}">
+                <tr>
+                    <td>[[${mark.value}]]</td>
+                    <td>[[${mark.student.firstName}]]</td>
+                    <td>[[${mark.teacher.firstName}]]</td>
+                    <td>[[${mark.subject.name}]]</td>
+                    <td>
+                        <div class="btn-block">
+                            <a class="btn btn-primary" th:href="@{'/marks/edit/' + ${mark.id}}">Edit</a>
+                            &nbsp;
+                            <a class="btn btn-danger"th:href="@{'/marks/delete/' + ${mark.id}}">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+    <div class="btn-block">
+        <a class="btn btn-primary" th:href="@{'/'}">Main</a>
+        <a class="btn btn-primary" th:href="@{'/marks/new'}">Add</a>
+    </div>
+</div>
+</body>
+</html>

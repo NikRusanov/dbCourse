@@ -30,11 +30,10 @@ public class PeopleController {
         this.groupService = groupService;
     }
 
-    @GetMapping("/peoples/")
+    @GetMapping("/peoples")
     public String listPeoples(Model model) {
         List<People> peoples = peopleService.list();
         model.addAttribute("peoplesList", peoples);
-        model.addAttribute("groups", groupService.list());
         return "peoples";
     }
 

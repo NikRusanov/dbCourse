@@ -1,15 +1,14 @@
 package com.db.example.db.entities;
 
 import javax.persistence.*;
-import javax.security.auth.Subject;
 
 @Entity
 @Table(name = "marks", schema = "main")
-public class Marks {
+public class Mark {
 
     @Id
     @Column(name= "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name="value")
@@ -23,14 +22,15 @@ public class Marks {
     @JoinColumn(name = "teacher_id")
     private  People teacher;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Subjects subject;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name= "subject_id")
+    private Subject subject;
 
 
-    public Marks() {
+    public Mark() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -62,11 +62,11 @@ public class Marks {
         this.teacher = teacher;
     }
 
-    public Subjects getSubject() {
+    public Subject getSubject() {
         return subject;
     }
 
-    public void setSubject(Subjects subject) {
+    public void setSubject(Subject subject) {
         this.subject = subject;
     }
 }

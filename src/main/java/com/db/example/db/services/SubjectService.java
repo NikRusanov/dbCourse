@@ -31,7 +31,7 @@ public class SubjectService {
 
     @Transactional
     public void save(Subject subject) {
-        if(subject.getId() == null) {
+        if(subject.getId() == 0) {
             entityManager.persist(subject);
         } else  {
             entityManager.merge(subject);

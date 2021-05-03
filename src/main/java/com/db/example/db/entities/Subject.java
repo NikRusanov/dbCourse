@@ -17,7 +17,7 @@ public class Subject {
     @Column(name = "name")
     private String name;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
