@@ -9,7 +9,16 @@
 <div class="container text-center">
     <div> <h1>people list</h1></div>
     <div>
-        <table class="table table-bordered">
+        <form th:action="@{/peoples}" class="form-inline" method="get">
+            <div class="input-group">
+                    <input type="text" name="keyword" class="form-control"/>
+
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit">Search</button>
+                </div>
+            </div>
+        </form>
+        <table class="table table-bordered mt-2">
             <thread>
                 <tr class="thead-dark">
                     <th>FIRST NAME</th>

@@ -31,8 +31,13 @@ public class PeopleController {
     }
 
     @GetMapping("/peoples")
-    public String listPeoples(Model model) {
-        List<People> peoples = peopleService.list();
+    public String listPeoples(Model model, String keyword) {
+        List<People> peoples;
+        if (keyword == null || keyword.isEmpty()) {
+            peoples = peopleService.list();
+        } else  {
+            peoples = peopleService.findByName(keyword);
+        }
         model.addAttribute("peoplesList", peoples);
         return "peoples";
     }

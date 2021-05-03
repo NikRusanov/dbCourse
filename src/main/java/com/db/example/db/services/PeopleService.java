@@ -53,6 +53,18 @@ public class PeopleService {
         return entityManager.find(People.class, id);
     }
 
+    public List<People> findByName(String name) {
+        CriteriaQuery<People> criteriaQuery = criteriaFactory.getCriteria(People.class);
+        Root<People> root = criteriaQuery.from(People.class);
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        String likePattern = name+"%";
+        Predicate firstNamePred = builder.like(root.get("firstName"), likePattern);
+        Predicate secondNamePred = builder.like(root.get("lastName"), name);
+        criteriaQuery.select(root).where(builder.or(firstNamePred, secondNamePred));
+        return entityManager.createQuery(criteriaQuery).getResultList();
+
+    }
+
     public List<People> findByGroup(Group group) {
         CriteriaQuery<People> criteriaQuery = criteriaFactory.getCriteria(People.class);
         Root<People> root = criteriaQuery.from(People.class);
