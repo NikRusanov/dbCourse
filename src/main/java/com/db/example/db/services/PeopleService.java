@@ -92,7 +92,6 @@ public class PeopleService {
         Root<Mark> root = criteriaQuery.from(Mark.class);
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 
-        Join<Mark, People> teacherJoin = root.join("teacher");
         Join<Mark, People> studentJoin = root.join("student");
         Join<Mark, Group> groupJoin = studentJoin.join("group");
 

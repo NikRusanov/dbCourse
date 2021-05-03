@@ -9,6 +9,30 @@
 <div class="container text-center">
     <div> <h1>marks list</h1></div>
     <div>
+        <form th:action="@{/marks}"  method="get">
+            <div class="form-group row">
+                <label class="col-form-label ">Teacher:</label>
+                <div class="col-4">
+                    <input type="text" name="teacherName" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label ">Student:</label>
+                <div class="col-4">
+                    <input type="text" name="studentName" class="form-control"/>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-form-label ">Subject:</label>
+                <div class="col-4">
+                   <input type="text" name="subjectName" class="form-control"/>
+                </div>
+                <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+
+
+        </form>
         <table class="table table-bordered">
             <thread>
                 <tr class="thead-dark">

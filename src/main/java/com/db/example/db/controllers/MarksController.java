@@ -31,8 +31,14 @@ public class MarksController {
     }
 
     @GetMapping("/marks")
-    public String listMarks(Model model) {
-        List<Mark> marks = marksService.list();
+    public String listMarks(Model model, String teacherName, String studentName, String subjectName) {
+        List<Mark> marks;
+        if(teacherName.isEmpty() && studentName.isEmpty() && subjectName.isEmpty()){
+            marks = marksService.list();
+        } else  {
+            marks = marksService.findFilter(teacherName, studentName, subjectName);
+        }
+
         model.addAttribute("markList", marks);
         return "marks";
     }
