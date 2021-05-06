@@ -14,14 +14,14 @@
         <input type="hidden" th:field="*{id}" th:value="${group.id}"/>
         <div class="m-3">
             <div class="form-group row">
-                <label class="col-form-label col-sm-4">First name:</label>
+                <label class="col-form-label col-sm-4">Name:</label>
                 <div class="col-sm-8">
                     <input type="text" th:field="*{name}" class="form-control" required/>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label class="col-form-label col-sm-4">Last name:</label>
+                <label class="col-form-label col-sm-4">Year:</label>
                 <div class="col-sm-8">
                     <input type="number" min="0" max="3000"  th:field="*{year}" class="form-control" required/>
                 </div>

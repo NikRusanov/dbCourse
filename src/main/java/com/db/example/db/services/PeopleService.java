@@ -62,7 +62,6 @@ public class PeopleService {
         Predicate secondNamePred = builder.like(root.get("lastName"), name);
         criteriaQuery.select(root).where(builder.or(firstNamePred, secondNamePred));
         return entityManager.createQuery(criteriaQuery).getResultList();
-
     }
 
     public List<People> findByGroup(Group group) {
