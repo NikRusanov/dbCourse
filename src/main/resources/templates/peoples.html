@@ -12,10 +12,33 @@
     <div>
         <form th:action="@{/peoples}" class="form-inline" method="get">
             <div class="input-group">
-                    <input type="text" name="keyword" class="form-control"/>
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Search</span>
+                </div>
+                <input type="text" name="keyword" class="form-control"/>
 
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="submit">Search</button>
+                </div>
+            </div>
+        </form>
+
+        <form th:action="@{/peoples/group_filter}" class="form-inline" method="get">
+            <div class="input-group mt-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Group filter</span>
+                </div>
+                <div>
+                    <select name="group_id" class="form-control" required>
+                        <th:block th:each="group : ${groupsList}">
+                            <option th:text="${group.name}" th:value="${group.id}"/>
+                        </th:block>
+                    </select>
+                </div>
+
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit" name="action" th:value="submit">Show by type</button>
+                    <button class="btn btn-outline-secondary" type="submit" name="action" th:value="reset" >Clear</button>
                 </div>
             </div>
         </form>
