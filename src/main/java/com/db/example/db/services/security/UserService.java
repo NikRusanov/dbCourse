@@ -1,8 +1,10 @@
-package com.db.example.db.services;
+package com.db.example.db.services.security;
 
-import com.db.example.db.entities.People;
-import com.db.example.db.entities.Role;
-import com.db.example.db.entities.User;
+
+import com.db.example.db.entities.security.Role;
+import com.db.example.db.entities.security.User;
+import com.db.example.db.services.CriteriaFactory;
+import com.db.example.db.services.RolesService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.util.HashSet;
@@ -55,8 +58,10 @@ public class UserService {
     public User findByUserName(String userName) {
         CriteriaQuery<User> criteriaQuery = criteriaFactory.getCriteria(User.class);
         Root<User> root = criteriaQuery.from(User.class);
+        root.fetch("roles", JoinType.LEFT);
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         criteriaQuery.select(root).where(builder.equal(root.get("userName"), userName));
         return entityManager.createQuery(criteriaQuery).getSingleResult();
     }
 }
+

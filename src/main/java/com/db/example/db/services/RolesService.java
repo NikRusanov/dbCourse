@@ -1,6 +1,6 @@
 package com.db.example.db.services;
 
-import com.db.example.db.entities.Role;
+import com.db.example.db.entities.security.Role;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;

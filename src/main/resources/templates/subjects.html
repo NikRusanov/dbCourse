@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>List groups</title>
@@ -13,14 +14,14 @@
             <thread>
                 <tr class="thead-dark">
                     <th>NAME</th>
-                    <th></th>
+                    <th sec:authorize="hasAnyAuthority('ADMIN')"></th>
                 </tr>
             </thread>
             <tbody>
             <th:block th:each="subject : ${subjects}">
                 <tr>
                     <td>[[${subject.name}]]</td>
-                    <td>
+                    <td  sec:authorize="hasAnyAuthority('ADMIN')">
                         <div class="btn-block">
                             <a class="btn btn-primary" th:href="@{'/subjects/edit/' + ${subject.id}}">Edit</a>
                             <a class="btn btn-danger"th:href="@{'/subjects/delete/' + ${subject.id}}">Delete</a>
@@ -33,7 +34,7 @@
     </div>
     <div class="btn-block">
         <a class="btn btn-primary" th:href="@{'/'}">Main</a>
-        <a class="btn btn-primary" th:href="@{'/subjects/new'}">Add</a>
+        <a  sec:authorize="hasAnyAuthority('ADMIN')" class="btn btn-primary" th:href="@{'/subjects/new'}">Add</a>
     </div>
 </div>
 </body>

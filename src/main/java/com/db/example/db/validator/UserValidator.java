@@ -1,7 +1,7 @@
 package com.db.example.db.validator;
 
-import com.db.example.db.entities.User;
-import com.db.example.db.services.UserService;
+import com.db.example.db.entities.security.User;
+import com.db.example.db.services.security.UserService;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -28,7 +28,7 @@ public class UserValidator implements Validator {
             errors.rejectValue("username", "Size.userForm.username");
         }
 
-        if(userService.findByUserName(user.getUserName())!=null) {
+        if(userService.findByUserName(user.getUserName()) != null) {
             errors.rejectValue("username", "Duplicate.userForm.username");
         }
 

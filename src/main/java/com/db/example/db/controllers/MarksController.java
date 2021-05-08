@@ -33,7 +33,10 @@ public class MarksController {
     @GetMapping("/marks")
     public String listMarks(Model model, String teacherName, String studentName, String subjectName) {
         List<Mark> marks;
-        if(teacherName.isEmpty() && studentName.isEmpty() && subjectName.isEmpty()){
+        if((teacherName == null || teacherName.isEmpty()) &&
+                (studentName == null || studentName.isEmpty()) &&
+                (subjectName == null || subjectName.isEmpty()))
+        {
             marks = marksService.list();
         } else  {
             marks = marksService.findFilter(teacherName, studentName, subjectName);
@@ -62,7 +65,7 @@ public class MarksController {
         return "redirect:/marks";
     }
 
-    @GetMapping("marks/edit/{id}")
+    @GetMapping("/marks/edit/{id}")
     public String showMarkEditForm(@PathVariable("id") Integer id, Model model) {
         List<People> students = peopleService.findByType('s');
         List<People> teachers = peopleService.findByType('t');
@@ -78,7 +81,7 @@ public class MarksController {
         return "mark_form";
     }
 
-    @GetMapping("marks/delete/{id}")
+    @GetMapping("/marks/delete/{id}")
     public String deleteMark(@PathVariable("id") Integer id, Model model) {
         Mark mark = marksService.findById(id);
         if(mark == null) {

@@ -55,7 +55,7 @@ public class PeopleController {
         return "redirect:/peoples";
     }
 
-    @GetMapping("peoples/edit/{id}")
+    @GetMapping("/peoples/edit/{id}")
     public String showPeopleEditForm(@PathVariable("id") Integer id, Model model) {
         People people = peopleService.findById(id);
         if(people == null) {
@@ -66,7 +66,7 @@ public class PeopleController {
         return "people_form";
     }
 
-    @GetMapping("peoples/delete/{id}")
+    @GetMapping("/peoples/delete/{id}")
     public String deletePeople(@PathVariable("id") Integer id, Model model) {
         People people = peopleService.findById(id);
         if(people == null) {

@@ -58,15 +58,15 @@ public class MarksService {
         Join<Mark, People> studentJoin = root.join("student");
         Join<Mark, Subject> subjectJoin = root.join("subject");
 
-        if (!teacherName.isEmpty()) {
+        if (teacherName != null && !teacherName.isEmpty()) {
             String teacherPattern = likePattern(teacherName);
             patterns.add(builder.like(teacherJoin.get("firstName"), teacherPattern));
         }
-        if (!studentName.isEmpty()) {
+        if (studentName != null && !studentName.isEmpty()) {
             String studentPattern = likePattern(studentName);
             patterns.add(builder.like(studentJoin.get("firstName"), studentPattern));
         }
-        if (!subjectName.isEmpty()) {
+        if (subjectName != null && !subjectName.isEmpty()) {
             String subjectPattern = likePattern(subjectName);
             patterns.add(builder.like(subjectJoin.get("name"), subjectPattern));
         }

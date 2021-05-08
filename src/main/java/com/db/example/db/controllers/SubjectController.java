@@ -40,7 +40,7 @@ public class SubjectController {
         return "redirect:/subjects";
     }
 
-    @GetMapping("subjects/edit/{id}")
+    @GetMapping("/subjects/edit/{id}")
     public String showPeopleEditForm(@PathVariable("id") Integer id, Model model) {
         Subject subject = subjectService.findById(id);
         if(subject == null) {
@@ -50,7 +50,7 @@ public class SubjectController {
         return "subject_form";
     }
 
-    @GetMapping("subjects/delete/{id}")
+    @GetMapping("/subjects/delete/{id}")
     public String deleteSubject(@PathVariable("id") Integer id, Model model) {
         Subject subject = subjectService.findById(id);
         if(subject == null) {

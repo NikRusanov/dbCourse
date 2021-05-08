@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>List groups</title>
@@ -14,7 +15,7 @@
                 <tr class="thead-dark">
                     <th>NAME</th>
                     <th>YEAR</th>
-                    <th></th>
+                    <th sec:authorize="hasAnyAuthority('ADMIN')"></th>
                 </tr>
             </thread>
             <tbody>
@@ -22,7 +23,7 @@
                 <tr>
                     <td>[[${group.name}]]</td>
                     <td>[[${group.year}]]</td>
-                    <td>
+                    <td sec:authorize="hasAnyAuthority('ADMIN')">
                         <div class="btn-block">
                             <a class="btn btn-primary" th:href="@{'/groups/edit/' + ${group.id}}">Edit</a>
                             &nbsp;
@@ -36,7 +37,7 @@
     </div>
     <div class="btn-block">
         <a class="btn btn-primary" th:href="@{'/'}">Main</a>
-        <a class="btn btn-primary" th:href="@{'/groups/new'}">Add</a>
+        <a  sec:authorize="hasAnyAuthority('ADMIN')" class="btn btn-primary" th:href="@{'/groups/new'}">Add</a>
     </div>
 </div>
 </body>

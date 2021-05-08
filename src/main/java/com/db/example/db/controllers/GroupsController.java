@@ -42,7 +42,7 @@ public class GroupsController {
         return "redirect:/groups";
     }
 
-    @GetMapping("groups/edit/{id}")
+    @GetMapping("/groups/edit/{id}")
     public String showGroupEditForm(@PathVariable("id") Integer id, Model model) {
         Group group = groupsService.findById(id);
         if(group == null) {
@@ -52,7 +52,7 @@ public class GroupsController {
         return "group_form";
     }
 
-    @GetMapping("groups/delete/{id}")
+    @GetMapping("/groups/delete/{id}")
     public String deleteGroup(@PathVariable("id") Integer id, Model model) {
         Group group = groupsService.findById(id);
         if(group == null) {

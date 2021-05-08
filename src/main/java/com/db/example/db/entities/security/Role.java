@@ -1,4 +1,4 @@
-package com.db.example.db.entities;
+package com.db.example.db.entities.security;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>List Marks</title>
@@ -40,7 +41,7 @@
                     <th>STUDENT</th>
                     <th>TEACHER</th>
                     <th>SUBJECT</th>
-                    <th></th>
+                    <th sec:authorize="hasAnyAuthority('ADMIN')"></th>
                 </tr>
             </thread>
             <tbody>
@@ -50,7 +51,7 @@
                     <td>[[${mark.student.firstName}]]</td>
                     <td>[[${mark.teacher.firstName}]]</td>
                     <td>[[${mark.subject.name}]]</td>
-                    <td>
+                    <td  sec:authorize="hasAnyAuthority('ADMIN')">
                         <div class="btn-block">
                             <a class="btn btn-primary" th:href="@{'/marks/edit/' + ${mark.id}}">Edit</a>
                             &nbsp;
@@ -64,7 +65,7 @@
     </div>
     <div class="btn-block">
         <a class="btn btn-primary" th:href="@{'/'}">Main</a>
-        <a class="btn btn-primary" th:href="@{'/marks/new'}">Add</a>
+        <a   sec:authorize="hasAnyAuthority('ADMIN')" class="btn btn-primary" th:href="@{'/marks/new'}">Add</a>
     </div>
 </div>
 </body>
