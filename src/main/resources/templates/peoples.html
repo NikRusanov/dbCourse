@@ -29,7 +29,7 @@
                     <span class="input-group-text">Group filter</span>
                 </div>
                 <div>
-                    <select name="group_id" class="form-control" required>
+                    <select name="group_id" class="form-control custom-select" required>
                         <th:block th:each="group : ${groupsList}">
                             <option th:text="${group.name}" th:value="${group.id}"/>
                         </th:block>
@@ -72,6 +72,25 @@
             </th:block>
             </tbody>
         </table>
+
+        <form th:action="@{/peoples/teacherMarkStatistic/}" class="form-inline" method="get">
+            <div class="input-group mt-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Teacher mark stat</span>
+                </div>
+                <div>
+                    <select name="teacher_id" class="form-control custom-select" required>
+                        <th:block th:each="teacher : ${teacherList}">
+                            <option th:text="${teacher.firstName}" th:value="${teacher.id}"/>
+                        </th:block>
+                    </select>
+                </div>
+
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit" th:value="submit">Go</button>
+                </div>
+            </div>
+        </form>
     </div>
     <div class="btn-block">
         <a class="btn btn-primary" th:href="@{'/'}">Main</a>

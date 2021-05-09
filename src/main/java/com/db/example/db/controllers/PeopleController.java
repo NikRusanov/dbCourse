@@ -5,19 +5,20 @@ import com.db.example.db.entities.Group;
 import com.db.example.db.entities.People;
 import com.db.example.db.services.GroupsService;
 import com.db.example.db.services.PeopleService;
-import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.persistence.Tuple;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -35,6 +36,7 @@ public class PeopleController {
     @GetMapping("/peoples")
     public String listPeoples(Model model, String keyword) {
         List<People> peoples;
+        List<People> teachers = peopleService.findByType('t');
         if (keyword == null || keyword.isEmpty()) {
             peoples = peopleService.list();
         } else  {
@@ -42,6 +44,7 @@ public class PeopleController {
         }
         model.addAttribute("peoplesList", peoples);
         model.addAttribute("groupsList", groupService.list());
+        model.addAttribute("teacherList", teachers);
         return "peoples";
     }
 
@@ -91,7 +94,18 @@ public class PeopleController {
         return "redirect:/peoples";
     }
 
-
+    @GetMapping("/peoples/teacherMarkStatistic/")
+    public  String lowerAverageMarkOnTeachers( Integer teacher_id, Model model) {
+        People teacher = peopleService.findById(teacher_id);
+        List<Tuple> result = peopleService.getLowerAverageMarksByTeacher(teacher);
+        Map<Group,String> teacherWithAvgMark = new HashMap<>();
+        for(var elem : result) {
+            teacherWithAvgMark.put((Group) elem.get(0), (String) elem.get(1).toString());
+        }
+        model.addAttribute("teacher", teacher);
+        model.addAttribute("teachers_with_avg_mark", teacherWithAvgMark);
+        return "/teacher_statistic";
+    }
 
 
 

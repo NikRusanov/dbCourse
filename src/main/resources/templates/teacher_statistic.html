@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>${teacher.firstName}</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container text-center">
+    <div> <h1 th:text="${teacher.firstName}"></h1></div>
+    <div>
+        <table class="table table-bordered">
+            <thread>
+                <tr class="thead-dark">
+                    <th>Teacher</th>
+                    <th>Average Mark</th>
+                </tr>
+            </thread>
+            <tbody>
+                <th:block th:each="map : ${teachers_with_avg_mark}">
+                    <tr th:each="e : ${map}">
+                        <td th:text="${e.key.name}"></td>
+                        <td th:text="${e.value}"></td>
+                    </tr>
+                </th:block>
+            </tbody>
+        </table>
+    </div>
+    <div class="btn-block">
+        <a class="btn btn-primary" th:href="@{'/'}">Main</a>
+        <a  sec:authorize="hasAnyAuthority('ADMIN')" class="btn btn-primary" th:href="@{'/groups/new'}">Add</a>
+    </div>
+</div>
+</body>
+</html>
