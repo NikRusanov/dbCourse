@@ -11,7 +11,9 @@ import javax.persistence.Tuple;
 import javax.persistence.criteria.*;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PeopleService {
@@ -86,7 +88,7 @@ public class PeopleService {
         return  entityManager.createQuery(criteriaQuery).getResultList();
     }
 
-    public List<Tuple> getLowerAverageMarksByTeacher(People people) {
+    public Map<Group, String> getLowerAverageMarksByTeacher(People people) {
         CriteriaQuery<Tuple> criteriaQuery = criteriaFactory.getCriteria(Tuple.class);
         Root<Mark> root = criteriaQuery.from(Mark.class);
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
@@ -100,7 +102,13 @@ public class PeopleService {
         criteriaQuery.select(builder.tuple(groupJoin,averageValues));
         criteriaQuery.groupBy(studentJoin.get("group"), groupJoin.get("id"));
         criteriaQuery.orderBy(builder.asc(averageValues));
-        return entityManager.createQuery(criteriaQuery).getResultList();
+        List<Tuple> tuples =  entityManager.createQuery(criteriaQuery).getResultList();
+
+        Map<Group,String> teacherWithAvgMark = new HashMap<>();
+        for(var elem : tuples) {
+            teacherWithAvgMark.put((Group) elem.get(0), (String) elem.get(1).toString());
+        }
+        return teacherWithAvgMark;
     }
 
 }

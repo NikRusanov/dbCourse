@@ -5,6 +5,8 @@ import com.db.example.db.entities.Group;
 import com.db.example.db.entities.People;
 import com.db.example.db.services.GroupsService;
 import com.db.example.db.services.PeopleService;
+import com.db.example.db.services.saver.PdfExport;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -15,7 +17,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.persistence.Tuple;
+import javax.servlet.http.HttpServletResponse;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -97,17 +104,25 @@ public class PeopleController {
     @GetMapping("/peoples/teacherMarkStatistic/")
     public  String lowerAverageMarkOnTeachers( Integer teacher_id, Model model) {
         People teacher = peopleService.findById(teacher_id);
-        List<Tuple> result = peopleService.getLowerAverageMarksByTeacher(teacher);
-        Map<Group,String> teacherWithAvgMark = new HashMap<>();
-        for(var elem : result) {
-            teacherWithAvgMark.put((Group) elem.get(0), (String) elem.get(1).toString());
-        }
+        Map<Group,String> teacherWithAvgMark = peopleService.getLowerAverageMarksByTeacher(teacher);
         model.addAttribute("teacher", teacher);
         model.addAttribute("teachers_with_avg_mark", teacherWithAvgMark);
         return "/teacher_statistic";
     }
 
 
+    @GetMapping("/teacher/pdfTeacherMarkStatistic/{teacher_id}")
+    public void exportTeacherMarkStatisticToPdf(HttpServletResponse response, @PathVariable("teacher_id") Integer teacher_id) throws IOException {
+        People teacher = peopleService.findById(teacher_id);
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=teacher_statistic" + dateFormatter.format(new Date()) + ".pdf";
+        response.setHeader(headerKey,headerValue);
+        Map<Group,String> teacherWithAvgMark = peopleService.getLowerAverageMarksByTeacher(teacher);
+        PdfExport export = new PdfExport(teacherWithAvgMark, teacher.getFirstName());
+        export.export(response);
+    }
 
 
 

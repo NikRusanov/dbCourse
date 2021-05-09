@@ -28,9 +28,7 @@
         </table>
     </div>
     <div class="btn-block">
-        <a class="btn btn-primary" th:href="@{'/'}">Main</a>
-        <a  sec:authorize="hasAnyAuthority('ADMIN')" class="btn btn-primary" th:href="@{'/groups/new'}">Add</a>
-    </div>
+        <a  class="btn btn-primary" th:href="@{'/teacher/pdfTeacherMarkStatistic/' + ${teacher.id}}">Save to pdf</a>
 </div>
 </body>
 </html>
